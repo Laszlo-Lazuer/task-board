@@ -1,0 +1,76 @@
+# ========================
+# Java / Spring Boot (backend/)
+# ========================
+
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Gradle (if used instead of Maven)
+backend/build/
+backend/.gradle/
+
+# Application properties with secrets
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-local.yml
+
+# ========================
+# Node / React (frontend/)
+# ========================
+
+# Dependencies
+frontend/node_modules/
+node_modules/
+
+# Build output
+frontend/dist/
+frontend/build/
+
+# Vite
+frontend/.vite/
+
+# ========================
+# Environment & Secrets
+# ========================
+.env
+.env.*
+!.env.example
+
+# ========================
+# IDE / Editor
+# ========================
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ========================
+# OS
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# Docker
+# ========================
+docker-compose.override.yml
+
+# ========================
+# Logs & Misc
+# ========================
+*.log
+*.tmp
+*.bak
