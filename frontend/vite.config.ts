@@ -7,16 +7,17 @@ export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
   server: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        secure: false
-      },
-      '/actuator': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        secure: false
-      },
+      // Disabled as we updated CORS on the backend
+      // '/api': {
+      //   target: 'http://localhost:8080',
+      //   changeOrigin: true,
+      //   secure: false
+      // },
+      // '/actuator': {
+      //   target: 'http://localhost:8080',
+      //   changeOrigin: true,
+      //   secure: false
+      // },
     }
   }
 });
