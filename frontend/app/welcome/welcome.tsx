@@ -13,14 +13,14 @@ export function Welcome() {
 
   useEffect(() => {
     const loadActuator = async () => {
-      const res = await fetch("/actuator/health");
+      const res = await fetch("http://localhost:8080/actuator/health");
       const json = (await res.json()) as Health;
       setActuatorData(json);
     };
     loadActuator();
 
     const load = async () => {
-      const res = await fetch("/api/health");
+      const res = await fetch("http://localhost:8080/api/health");
       const json = (await res.json()) as Health;
       setData(json);
     };
