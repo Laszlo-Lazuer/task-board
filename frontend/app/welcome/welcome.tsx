@@ -6,10 +6,19 @@ interface Health {
   status: string;
 }
 
+// http://localhost:8080/actuator/health
 export function Welcome() {
   const [data, setData] = useState<Health | null>(null);
+  const [actuatorData, setActuatorData] = useState<Health | null>(null);
 
   useEffect(() => {
+    const loadActuator = async () => {
+      const res = await fetch("/actuator/health");
+      const json = (await res.json()) as Health;
+      setActuatorData(json);
+    };
+    loadActuator();
+
     const load = async () => {
       const res = await fetch("/api/health");
       const json = (await res.json()) as Health;
@@ -37,7 +46,8 @@ export function Welcome() {
         </header>
         <div>
           <h2>Fetch</h2>
-          <p>{data ? data.status : "Loading"}</p>
+          <p>{data ? `REST Health Status: ${data.status}` : "Loading"}</p>
+          <p>{actuatorData ? `Actuator Health Status: ${actuatorData.status}` : "Loading"}</p>
         </div>
         <div className="max-w-[300px] w-full space-y-6 px-4">
           <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
