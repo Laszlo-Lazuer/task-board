@@ -1,7 +1,32 @@
+import { useEffect, useState } from "react";
 import logoDark from "./logo-dark.svg";
 import logoLight from "./logo-light.svg";
 
+interface Health {
+  status: string;
+}
+
+// http://localhost:8080/actuator/health
 export function Welcome() {
+  const [data, setData] = useState<Health | null>(null);
+  const [actuatorData, setActuatorData] = useState<Health | null>(null);
+
+  useEffect(() => {
+    const loadActuator = async () => {
+      const res = await fetch("/actuator/health");
+      const json = (await res.json()) as Health;
+      setActuatorData(json);
+    };
+    loadActuator();
+
+    const load = async () => {
+      const res = await fetch("/api/health");
+      const json = (await res.json()) as Health;
+      setData(json);
+    };
+    load();
+  }, []);
+
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
@@ -19,6 +44,11 @@ export function Welcome() {
             />
           </div>
         </header>
+        <div>
+          <h2>Fetch</h2>
+          <p>{data ? `REST Health Status: ${data.status}` : "Loading"}</p>
+          <p>{actuatorData ? `Actuator Health Status: ${actuatorData.status}` : "Loading"}</p>
+        </div>
         <div className="max-w-[300px] w-full space-y-6 px-4">
           <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
             <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
