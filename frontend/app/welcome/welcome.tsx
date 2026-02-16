@@ -1,7 +1,23 @@
+import { useEffect, useState } from "react";
 import logoDark from "./logo-dark.svg";
 import logoLight from "./logo-light.svg";
 
+interface Health {
+  status: string;
+}
+
 export function Welcome() {
+  const [data, setData] = useState<Health | null>(null);
+
+  useEffect(() => {
+    const load = async () => {
+      const res = await fetch("/api/health");
+      const json = (await res.json()) as Health;
+      setData(json);
+    };
+    load();
+  }, []);
+
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
@@ -19,6 +35,10 @@ export function Welcome() {
             />
           </div>
         </header>
+        <div>
+          <h2>Fetch</h2>
+          <p>{data ? data.status : "Loading"}</p>
+        </div>
         <div className="max-w-[300px] w-full space-y-6 px-4">
           <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
             <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
