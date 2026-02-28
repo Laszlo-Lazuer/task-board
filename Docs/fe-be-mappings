@@ -1,0 +1,71 @@
+# FE ↔ BE Mappings (TypeScript/JavaScript to Java/Spring)
+
+## Core keyword mapping
+
+- `const x = ...` (TS/JS) ↔ `final Type x = ...` (Java local variable or field)
+- `readonly prop: T` (TS class field) ↔ `final` field in Java class
+- `static` (TS/JS) ↔ `static` (Java)
+
+## Mental model
+
+- `final` in Java means the reference can be assigned only once.
+- This is similar to `const` in JS/TS: no rebinding, but the object can still be mutable.
+
+## Mutability example
+
+TypeScript / JavaScript:
+
+```ts
+const user = { name: "A" };
+user.name = "B"; // ✅ allowed
+// user = { name: "C" }; // ❌ not allowed
+```
+
+Java:
+
+```java
+final User user = new User("A");
+user.setName("B"); // ✅ allowed
+// user = new User("C"); // ❌ not allowed
+```
+
+## Class field mapping
+
+TypeScript:
+
+```ts
+class A {
+  readonly repo: Repo;
+  constructor(repo: Repo) {
+    this.repo = repo;
+  }
+}
+```
+
+Java:
+
+```java
+class A {
+  private final Repo repo;
+
+  public A(Repo repo) {
+    this.repo = repo;
+  }
+}
+```
+
+## Java-only `final` uses
+
+- `final` method: cannot be overridden in subclasses.
+- `final` class: cannot be extended.
+- `final` parameter: cannot be reassigned inside method body.
+
+## In this project
+
+In `TaskService`, this line:
+
+```java
+private final TaskRepository taskRepository;
+```
+
+means Spring injects the dependency once in the constructor, and the reference cannot later point to a different repository instance.
