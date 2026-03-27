@@ -106,7 +106,7 @@ public class TaskController {
     // @RequestBody: Deserializes JSON request body into a Task object.
     // @ResponseStatus(HttpStatus.CREATED): Forces HTTP 201 response (not 200).
     // HTTP Status: 201 Created
-    @PostMapping("/")
+    @PostMapping({"", "/"})
     @ResponseStatus(HttpStatus.CREATED)
     public Task createTask(@RequestBody Task task) {
         return taskService.createTask(task);
