@@ -81,7 +81,7 @@ public class TaskController {
     // ============================================================================
     // Returns all tasks from the database.
     // HTTP Status: 200 OK (implicit)
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public List<Task> getAllTasks() {
         return taskService.getAllTasks();
     }

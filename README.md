@@ -47,5 +47,25 @@ VALUES ('Test Task', 'My first task', 'TODO', NOW(), NOW());
 - Data is **reset on every restart** (in-memory database).
 - Spring Boot 4.x requires the `spring-boot-h2console` dependency for the console to work.
 
+## API Testing Endpoints
+
+These debug endpoints allow you to test database connectivity and the full task CRUD flow via curl:
+
+### View Database Tables
+```bash
+curl http://localhost:8080/api/debug/tables
+```
+
+### View Task Table Schema
+```bash
+curl http://localhost:8080/api/debug/task-schema
+```
+
+### Verify Full Task Service Flow
+Creates, reads, updates, and deletes a test task in one request:
+```bash
+curl http://localhost:8080/api/verify/task-service
+```
+
 ## Notes
 This project is intentionally iterative; features, structure, and conventions may evolve as I apply new backend concepts.
